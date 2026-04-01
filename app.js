@@ -2,10 +2,14 @@ const express = require("express");
 const app = express();
 const HOST = "http://localhost"
 const PORT = 3000;
-const SCHEME = HOST + ":" + PORT;
+const URL = HOST + ":" + PORT;
 
+// Custom middleware to log requests.
+// next is a method that passes control
+// over request-response cycly to next
+// middleware
 app.use((req, res, next) => {
-    console.log(`${req.method} method from ${SCHEME}/`);
+    console.log(`${req.method} method from ${URL}/`);
     next();
 });
 
@@ -19,7 +23,7 @@ app.get('/', (req, res) => {
         <br> DELETE (param: users/:id)
         <br> using Postman or similar tool!
         <br>
-        <br> Go to the <a href="${SCHEME}/params">/params</a> endpoint to see available params that you can handle`
+        <br> Go to the <a href="${URL}/params">/params</a> endpoint to see available params that you can handle`
     );
 });
 
