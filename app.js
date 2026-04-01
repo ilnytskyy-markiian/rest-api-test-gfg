@@ -1,5 +1,11 @@
 const express = require("express");
 const app = express();
+const PORT = 3000;
+
+app.use((req, res, next) => {
+    console.log(`${req.method} method from http://localhost:${PORT}${req.url}`);
+    next();
+});
 
 app.use(express.json());
 
@@ -23,6 +29,6 @@ app.delete('/users/:id', (req, res) => {
     res.json({ message: `User with ID #${userId} has been sucessfully deleted`});
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("Listening on port 3000");
 });
