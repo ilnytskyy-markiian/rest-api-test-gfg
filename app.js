@@ -66,7 +66,9 @@ app.get('/params', (req, res) => {
         </span>
         <ul>
             <li>
-                Request body parameters (send JSON file)
+                Request body parameters (send JSON file to
+                "/params/body/post" or "/params/body/put"
+                depending on the request type)
             </li>
         </ul>
         Of couse, you could also combine these properties`
@@ -84,13 +86,25 @@ app.get('/params/query', (req, res) => {
     res.send(`Searching for ${queryKey}`);
 });
 
-// Respinse body parameter (POST)
+// Response body parameter (POST)
 
 app.post('/params/body/post', (req, res) => {
     const body = req.body;
     res.json(
         {
             message: "POST response body parameter contents",
+            body
+        }
+    );
+});
+
+// Response body parameter (PUT)
+
+app.put('/params/body/put', (req, res) => {
+    const body = req.body;
+    res.json(
+        {
+            message: "PUT response body parameter contents",
             body
         }
     );
