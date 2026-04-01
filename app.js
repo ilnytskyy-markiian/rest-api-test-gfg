@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
+const HOST = "http://localhost"
 const PORT = 3000;
+const SCHEME = HOST + ":" + PORT;
 
 app.use((req, res, next) => {
-    console.log(`${req.method} method from http://localhost:${PORT}${req.url}`);
+    console.log(`${req.method} method from ${SCHEME}/`);
     next();
 });
 
@@ -11,11 +13,13 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send(`Hello World! Try to send some JSON files to
-        GET (any),
-        POST (param: user/:id),
-        PUT (param: user/:id, JSON: { "id": number }),
-        DELETE (param: users/:id)
-        using Postman or similar tool!`
+        <br> GET (any),
+        <br> POST (param: user/:id),
+        <br> PUT (param: user/:id, JSON: { "id": number }),
+        <br> DELETE (param: users/:id)
+        <br> using Postman or similar tool!
+        <br>
+        <br> Go to the <a href="${SCHEME}/params">/params</a> endpoint to see available params that you can handle`
     );
 });
 
@@ -37,6 +41,22 @@ app.put('/users/:id', (req, res) => {
 app.delete('/users/:id', (req, res) => {
     const userId = req.params.id;
     res.json({ message: `User with ID #${userId} has been sucessfully deleted`});
+});
+
+// Handling diffenent parameters
+
+// Starting point for params
+app.get('/params', (req, res) => {
+    res.send(`Params to handle:
+        <ul>
+            <li>Route parameters (/params/route/:&lt;param&gt;)</li>
+        </ul>`
+    );
+});
+
+// Route parameter
+app.get('/params/route/:param', (req, res) => {
+    res.send(`The route param is: ${req.params.param}`)
 });
 
 app.listen(PORT, () => {
