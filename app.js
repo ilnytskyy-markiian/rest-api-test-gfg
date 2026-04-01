@@ -88,7 +88,12 @@ app.get('/params/query', (req, res) => {
 
 app.post('/params/body/post', (req, res) => {
     const body = req.body;
-    res.send(`POST response body parameter contents: ${body}`);
+    res.json(
+        {
+            message: "POST response body parameter contents",
+            body
+        }
+    );
 });
 
 app.listen(PORT, () => {
