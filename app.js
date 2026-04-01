@@ -56,9 +56,20 @@ app.get('/params', (req, res) => {
                 Even though I think it's technically possible)&gt;)
             </li>
             <li>
-                Query parameters(/params/query?&lt;query key&gt;=&lt;query value&gt;)
+                Query parameters (/params/query?&lt;query key&gt;=&lt;query value&gt;)
             </li>
-        </ul>`
+        </ul>
+        Params to handle (via POST or PUT method).
+        <span style="font-weight: bold;">
+            <br>Use Postman or similar tool to send POST/PUT
+            request and get the response contents):
+        </span>
+        <ul>
+            <li>
+                Request body parameters (send JSON file)
+            </li>
+        </ul>
+        Of couse, you could also combine these properties`
     );
 });
 
@@ -71,6 +82,13 @@ app.get('/params/route/:param', (req, res) => {
 app.get('/params/query', (req, res) => {
     const queryKey = req.query.query;
     res.send(`Searching for ${queryKey}`);
+});
+
+// Respinse body parameter (POST)
+
+app.post('/params/body/post', (req, res) => {
+    const body = req.body;
+    res.send(`POST response body parameter contents: ${body}`);
 });
 
 app.listen(PORT, () => {
