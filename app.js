@@ -47,9 +47,17 @@ app.delete('/users/:id', (req, res) => {
 
 // Starting point for params
 app.get('/params', (req, res) => {
-    res.send(`Params to handle:
+    res.send(`Params to handle (via GET method):
         <ul>
-            <li>Route parameters (/params/route/:&lt;param&gt;)</li>
+            <li>
+                Route parameters
+                (/params/route/:&lt;param. Could be anything, like string,
+                number etc (but not arrays or objects for god's sake.
+                Even though I think it's technically possible)&gt;)
+            </li>
+            <li>
+                Query parameters(/params/query?&lt;query key&gt;=&lt;query value&gt;)
+            </li>
         </ul>`
     );
 });
@@ -57,6 +65,12 @@ app.get('/params', (req, res) => {
 // Route parameter
 app.get('/params/route/:param', (req, res) => {
     res.send(`The route param is: ${req.params.param}`)
+});
+
+// Query parameter
+app.get('/params/query', (req, res) => {
+    const queryKey = req.query.query;
+    res.send(`Searching for ${queryKey}`);
 });
 
 app.listen(PORT, () => {
