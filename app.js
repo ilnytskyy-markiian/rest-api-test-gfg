@@ -9,6 +9,16 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send(`Hello World! Try to send some JSON files to
+        GET (any),
+        POST (param: user/:id),
+        PUT (param: user/:id, JSON: { "id": number }),
+        DELETE (param: users/:id)
+        using Postman or similar tool!`
+    );
+});
+
 app.get('/users', (req, res) => {
     res.json({ message: "Returning list of users" });
 });
