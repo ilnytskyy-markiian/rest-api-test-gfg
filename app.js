@@ -114,6 +114,37 @@ app.put('/params/body/put', (req, res) => {
     );
 });
 
+// Error handling
+
+app.get('/error', (req, res) => {
+    res.send(`Page to simulate error.
+        Visit <a href="${URL}/error/get">/error/get</a>
+        to test it yourself (you should get
+        error code 500 "Internal Server Error")`);
+});
+
+// Simulated error
+
+app.get('/error/get', (req, res, next) => {
+    const error = new Error("Something went wrong!");
+    error.status = 500;
+    next(error);
+});
+
+// Middleware to handle simulated error
+
+app.use((error, req, res, next) => {
+    console.error(error.stack);
+    res.status(error.status || 500)
+        .send({
+            message: error,
+            status: error.status || 500
+        }
+    );
+});
+
+// Starting server to listen on port 3000
+
 app.listen(PORT, () => {
     console.log("Listening on port 3000");
 });
